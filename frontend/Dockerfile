@@ -8,16 +8,14 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instale as dependências
-RUN npm install
+RUN npm install --quiet --no-optional --no-fund
 
-# Copie todo o código do projeto
+# Copie o restante do código
 COPY . .
-
-# Build o projeto Next.js
-RUN npm run build
 
 # Exponha a porta que a aplicação irá rodar
 EXPOSE 3000
 
 # Comando para rodar a aplicação
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
+
