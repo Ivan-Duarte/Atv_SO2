@@ -3,34 +3,38 @@ import { Category } from '../category/category.entity';
 
 @Entity()
 export class Item {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn({ type: "int" })
+  item_id!: number;
 
-  @Column()
-  name!: string;
+  @Column({ type: "varchar", length: 150 })
+  item_name!: string;
 
-  @Column()
+  @Column({ type: "varchar", length: 200 })
   description!: string;
 
-  @Column()
+  @Column({ type: "decimal", precision: 10, scale: 2 })
   purchasePrice!: number;
 
-  @Column()
+  @Column({ type: "decimal", precision: 10, scale: 2 })
   salePrice!: number;
 
-  @Column()
+  @Column({ type: "int" })
   stockQuantity!: number;
 
-  @Column()
+  @Column({ type: "int" })
   minimumStock!: number;
 
-  @Column()
+  @Column({ type: "varchar", length: 100 })
   storageLocation!: string;
 
   @Column('text', { nullable: true })
   generalInformation!: string;
 
-  @ManyToOne(() => Category, category => category.items)
+  @Column({ default: true })
+  is_active!: boolean;
+
+  @ManyToOne(() => Category, category => category.category_items)
   category!: Category;
 }
+
 

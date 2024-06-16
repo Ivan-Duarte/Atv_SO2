@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ItemModule } from './item/item.module';
 import { CategoryModule } from './category/category.module';
+import { AuthModule } from './auth/auth.module';
 import { typeOrmConfig } from './database';
 
 @Module({
@@ -15,11 +16,11 @@ import { typeOrmConfig } from './database';
     UserModule,
     ItemModule,
     CategoryModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
 
-
-
+ 

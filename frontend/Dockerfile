@@ -8,22 +8,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instale as dependências
-RUN npm install --quiet --no-optional --no-fund
+RUN npm install
 
-# Copie todo o código do projeto, incluindo tsconfig.json
+# Copie todo o código do projeto
 COPY . .
 
-# Compile o projeto TypeScript
+# Build o projeto Next.js
 RUN npm run build
 
 # Exponha a porta que a aplicação irá rodar
-EXPOSE 5000
+EXPOSE 3000
 
 # Comando para rodar a aplicação
-CMD ["npm", "run", "start:prod"]
-
-
-
-
-
-
+CMD ["npm", "start"]

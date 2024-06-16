@@ -15,7 +15,7 @@ export class ItemService {
   }
 
   async findOne(id: number): Promise<Item> {
-    const item = await this.itemRepository.findOne({ where: { id }, relations: ['category'] });
+    const item = await this.itemRepository.findOne({ where: {item_id: id }, relations: ['category'] });
     if (!item) {
       throw new NotFoundException(`Item with ID ${id} not found`);
     }

@@ -23,6 +23,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: getEnvVariable('DB_NAME'),
   entities: [User, Item, Category],
   synchronize: true,
+  autoLoadEntities: true,
 };
 
 
