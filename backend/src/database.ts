@@ -1,7 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { Item } from './item/item.entity';
-import { Category } from './category/category.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,7 +20,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: getEnvVariable('DB_USERNAME'),
   password: getEnvVariable('DB_PASSWORD'),
   database: getEnvVariable('DB_NAME'),
-  entities: [User, Item, Category],
+  entities: [User, Item],
   synchronize: true,
   autoLoadEntities: true,
 };

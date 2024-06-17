@@ -11,6 +11,8 @@ services:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - backnet
 
   adminer:
     image: adminer
@@ -18,24 +20,10 @@ services:
     container_name: adminer
     ports:
       - "8080:8080"
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:5000
-      CHOKIDAR_USEPOLLING: "true"
-      WATCHPACK_POLLING: "true"
-      NEXT_PUBLIC_DEVELOPMENT: "true"
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    command: ["npm", "run", "dev"]
     depends_on:
-      - backend
+      - database
+    networks:
+      - backnet
 
   backend:
     build:
@@ -53,7 +41,32 @@ services:
       - "5000:5000"
     depends_on:
       - database
+    networks:
+      - backnet
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      NEXT_PUBLIC_DEVELOPMENT: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    command: npm run dev
+    depends_on:
+      - backend
+    networks:
+      - backnet
 
 volumes:
   db_data:
+
+networks:
+  backnet:
+    driver: bridge

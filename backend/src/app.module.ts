@@ -5,7 +5,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ItemModule } from './item/item.module';
-import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
 import { typeOrmConfig } from './database';
 
@@ -15,7 +14,6 @@ import { typeOrmConfig } from './database';
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     ItemModule,
-    CategoryModule,
     AuthModule,
   ],
   controllers: [AppController],

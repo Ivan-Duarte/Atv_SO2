@@ -1,7 +1,7 @@
-'use client'; // Adiciona esta linha no início do arquivo
+'use client';
 
-import { Box, Heading, Text, Button, useColorModeValue } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation'; // Atualize a importação para 'next/navigation'
+import { Box, Heading, Text, Button, useColorModeValue, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
   const router = useRouter();
@@ -12,6 +12,10 @@ export default function HomePage() {
     router.push('/login');
   };
 
+  const handleNavigateToItemForm = () => {
+    router.push('/item'); // Certifique-se de que a rota '/item' está correta
+  };
+
   return (
     <Box textAlign="center" py={10} px={6} bg={useColorModeValue('gray.50', 'gray.800')} minHeight="100vh">
       <Heading as="h1" size="xl" mb={4}>
@@ -20,10 +24,16 @@ export default function HomePage() {
       <Text fontSize="lg" mb={6}>
         You are now logged in!
       </Text>
-      <Button colorScheme="teal" onClick={handleLogout}>
-        Logout
-      </Button>
+      <Flex justifyContent={"center"} gap={"2rem"}>
+        <Button colorScheme="teal" onClick={handleLogout} mb={4}>
+          Logout
+        </Button>
+        <Button colorScheme="blue" onClick={handleNavigateToItemForm}>
+          Go to Item Registration
+        </Button>
+      </Flex>
     </Box>
   );
 }
+
 

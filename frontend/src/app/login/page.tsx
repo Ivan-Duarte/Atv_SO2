@@ -13,7 +13,7 @@ export default function LoginPage() {
     >
       <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
         <Heading as="h1" size="lg" textAlign="center" mb={6}>
-          Página de Logins
+          Bem Vindo!
         </Heading>
         <LoginForm />
       </Box>

@@ -1,9 +1,8 @@
-'use client'; // Adiciona esta linha no início do arquivo
+'use client';
 
 import { useState } from 'react';
-import { Box, FormControl, FormLabel, Input, VStack, Heading, useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation'; // Atualize a importação para 'next/navigation'
-import LoginButton from '../../../components/LoginButton';
+import { Box, Button, FormControl, FormLabel, Input, VStack, Heading, useToast } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 import { login } from '../services/loginService';
 
 export default function LoginForm() {
@@ -15,22 +14,21 @@ export default function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await login(email, password);
+    try {
+      const response = await login(email, password);
+        toast({
+          title: 'Login Aceito!',
+          description: 'Olá Novamente!',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        router.push('/home');
 
-    if (response.ok) {
+    } catch (error) {
       toast({
-        title: 'Login Bem Sucessido',
-        description: 'Bem-vindo novamente!',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
-      // Redireciona o usuário para a página principal
-      router.push('/home');
-    } else {
-      toast({
-        title: 'Erro no Login.',
-        description: 'Credenciais Invalidas, Por favor tente novamente.',
+        title: 'Erro no Login!',
+        description: 'Credenciais Inválidas, tente novamente',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -58,7 +56,9 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <LoginButton onClick={() => {}} />
+        <Button type="submit" colorScheme="blue" width="full">
+          Login
+        </Button>
       </VStack>
     </Box>
   );

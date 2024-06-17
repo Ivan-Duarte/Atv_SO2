@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Delete, NotFoundException, Body, Post, HttpCode } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { Item } from './item.entity';
+import { CreateItemDto } from '../common/dtos/CreateItem.dto';
 
 @Controller('items')
 export class ItemController {
@@ -23,6 +24,12 @@ export class ItemController {
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
     await this.itemService.remove(id);
+  }
+
+  @Post()
+  @HttpCode(201) // Define o código de status HTTP como 201
+  async createItem(@Body() createItemDto: CreateItemDto): Promise<Item> {
+    return this.itemService.createItem(createItemDto);
   }
 }
 

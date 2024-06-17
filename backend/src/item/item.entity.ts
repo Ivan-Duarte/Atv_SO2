@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Category } from '../category/category.entity';
+// src/item/item.entity.ts
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Item {
@@ -30,11 +30,11 @@ export class Item {
   @Column('text', { nullable: true })
   generalInformation!: string;
 
+  @Column({ type: "varchar", length: 100 })
+  category!: string;
+
   @Column({ default: true })
   is_active!: boolean;
-
-  @ManyToOne(() => Category, category => category.category_items)
-  category!: Category;
 }
 
 
