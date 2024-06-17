@@ -1,5 +1,5 @@
 // src/item/dto/create-item.dto.ts
-import { IsNotEmpty, IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsBase64 } from 'class-validator';
 
 export class CreateItemDto {
   @IsNotEmpty()
@@ -8,11 +8,11 @@ export class CreateItemDto {
 
   @IsNotEmpty()
   @IsString()
-  image!: string;
+  description!: string;
 
   @IsNotEmpty()
-  @IsString()
-  description!: string;
+  @IsBase64()
+  image!: string;
 
   @IsNotEmpty()
   @IsNumber()

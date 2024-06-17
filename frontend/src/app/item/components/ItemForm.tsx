@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { createItem } from '../services/itemService';
 import { Item } from '../../../types/item';
 import { NumericFormat } from 'react-number-format';
+import FileBase64 from 'react-file-base64';
 
 export default function ItemForm() {
   const [item, setItem] = useState<Item>({
@@ -32,11 +33,13 @@ export default function ItemForm() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log('Submitting item:', item); // Log para verificar o item antes do envio
+    console.log('Tamanho da imagem em bytes:', item.image.length * 0.75); // Verificando o tamanho da imagem
 
+    console.log('Submitting item:', item); // Log para verificar o item antes do envio
+    
     try {
       const response = await createItem(item);
       if (response.ok) {
@@ -80,8 +83,11 @@ export default function ItemForm() {
           <Input name="item_name" value={item.item_name} onChange={handleChange} />
         </FormControl>
         <FormControl id="image" isRequired>
-          <FormLabel>Imagem Representativa URL</FormLabel>
-          <Input name="image" value={item.image} onChange={handleChange} />
+          <FormLabel>Imagem Representativa</FormLabel>
+          <FileBase64
+            multiple={false}
+            onDone={({ base64 }: { base64: string }) => setItem(prevItem => ({ ...prevItem, image: base64 }))}
+          />
         </FormControl>
         <FormControl id="description" isRequired>
           <FormLabel>Descrição</FormLabel>

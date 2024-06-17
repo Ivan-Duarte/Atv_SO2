@@ -32,9 +32,15 @@ export class ItemService {
       if (existingItem) {
         throw new ConflictException('Item já cadastrado');
       }
-      const item = this.itemRepository.create(createItemDto);
-      return await this.itemRepository.save(item);
+
+      const { image, ...itemDetails } = createItemDto;
+      const item = this.itemRepository.create({
+        ...itemDetails,
+        image: image.split(',')[1],
+      });
+      return this.itemRepository.save(item);
     } catch (error) {
+      console.error('Error saving item:', error); // Adicione este log para ver o erro detalhado no console do servidor
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: (error as Error).message,

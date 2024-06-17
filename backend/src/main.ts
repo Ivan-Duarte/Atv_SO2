@@ -1,10 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { UserService } from './user/user.service';
 import { AppModule } from './app.module';
+import * as bodyParser from 'body-parser';
 import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Aumenta o limite de tamanho da carga útil
+  app.use(bodyParser.json({ limit: '10mb' }));
+  app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
   //Configuração do CORS
   app.use(cors({

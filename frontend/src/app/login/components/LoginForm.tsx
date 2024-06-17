@@ -16,6 +16,7 @@ export default function LoginForm() {
 
     try {
       const response = await login(email, password);
+      if (response.ok) {
         toast({
           title: 'Login Aceito!',
           description: 'Olá Novamente!',
@@ -24,7 +25,17 @@ export default function LoginForm() {
           isClosable: true,
         });
         router.push('/home');
-
+      } else {
+      const errorData = await response.json(); // Log para verificar a resposta do erro
+      console.log('Error response:', errorData);
+      toast({
+        title: 'Erro no Login!',
+        description: 'Credenciais Inválidas, tente novamente',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
     } catch (error) {
       toast({
         title: 'Erro no Login!',

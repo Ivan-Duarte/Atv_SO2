@@ -9,6 +9,9 @@ export class Item {
   @Column({ type: "varchar", length: 150 })
   item_name!: string;
 
+  @Column({ type: "longtext"})
+  image!: string;
+
   @Column({ type: "varchar", length: 200 })
   description!: string;
 
