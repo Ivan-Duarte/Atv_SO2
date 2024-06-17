@@ -1,6 +1,6 @@
-// src/types/item.ts
+// types/item.ts
 export interface Item {
-    name: string;
+    item_name: string;
     image: string;
     description: string;
     purchasePrice: number;
@@ -8,7 +8,8 @@ export interface Item {
     stockQuantity: number;
     minimumStock: number;
     category: string;
-    stockLocation: string;
-    additionalInfo?: string;
+    storageLocation: string;
+    generalInformation: string;
   }
+  
   

@@ -1,10 +1,12 @@
-import { Controller, Get, Param, Delete, NotFoundException, Body, Post, HttpCode } from '@nestjs/common';
+import { Controller, Get, Param, Delete, NotFoundException, Body, Post, HttpCode, Logger } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { Item } from './item.entity';
 import { CreateItemDto } from '../common/dtos/CreateItem.dto';
 
 @Controller('items')
 export class ItemController {
+  private readonly logger = new Logger(ItemController.name);
+  
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
@@ -27,8 +29,9 @@ export class ItemController {
   }
 
   @Post()
-  @HttpCode(201) // Define o código de status HTTP como 201
+  @HttpCode(201)
   async createItem(@Body() createItemDto: CreateItemDto): Promise<Item> {
+    this.logger.log('Received DTO:', createItemDto); 
     return this.itemService.createItem(createItemDto);
   }
 }

@@ -6,6 +6,9 @@ import { CreateItemDto } from '../common/dtos/CreateItem.dto';
 
 @Injectable()
 export class ItemService {
+  remove(id: number) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(Item)
     private itemRepository: Repository<Item>,
@@ -23,31 +26,19 @@ export class ItemService {
     return item;
   }
 
-  async remove(id: number): Promise<void> {
-    await this.itemRepository.delete(id);
-  }
-
   async createItem(createItemDto: CreateItemDto): Promise<Item> {
     try {
       const existingItem = await this.itemRepository.findOne({ where: { item_name: createItemDto.item_name } });
       if (existingItem) {
         throw new ConflictException('Item já cadastrado');
       }
-
-      const newItem = this.itemRepository.create(createItemDto);
-      return this.itemRepository.save(newItem);
+      const item = this.itemRepository.create(createItemDto);
+      return await this.itemRepository.save(item);
     } catch (error) {
-      if (error instanceof ConflictException) {
-        throw new HttpException({
-          status: HttpStatus.CONFLICT,
-          error: (error as Error).message,
-        }, HttpStatus.CONFLICT);
-      } else {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: (error as Error).message,
-        }, HttpStatus.BAD_REQUEST);
-      }
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: (error as Error).message,
+      }, HttpStatus.BAD_REQUEST);
     }
   }
 }

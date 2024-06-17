@@ -8,6 +8,10 @@ export class CreateItemDto {
 
   @IsNotEmpty()
   @IsString()
+  image!: string;
+
+  @IsNotEmpty()
+  @IsString()
   description!: string;
 
   @IsNotEmpty()
@@ -28,13 +32,13 @@ export class CreateItemDto {
 
   @IsNotEmpty()
   @IsString()
+  category!: string;
+
+  @IsNotEmpty()
+  @IsString()
   storageLocation!: string;
 
   @IsOptional()
   @IsString()
   generalInformation?: string;
-
-  @IsNotEmpty()
-  @IsString()
-  category!: string;
 }
