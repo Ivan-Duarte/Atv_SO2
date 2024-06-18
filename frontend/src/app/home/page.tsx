@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { Box, Heading, Text, Button, useColorModeValue, Flex } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, useColorModeValue, Flex, Divider } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
+import ItemList from '../home/components/ItemList';
 
 export default function HomePage() {
   const router = useRouter();
@@ -17,21 +18,25 @@ export default function HomePage() {
   };
 
   return (
-    <Box textAlign="center" py={10} px={6} bg={useColorModeValue('gray.50', 'gray.800')} minHeight="100vh">
-      <Heading as="h1" size="xl" mb={4}>
-        Welcome to the Home Page
+    <Box textAlign="left" py={10} px={6} bg={useColorModeValue('gray.50', 'gray.800')} minHeight="100vh">
+      <Heading as="h1" size="xl" mb={1} textShadow="2px 2px 3px rgba(0, 0, 0, 0.5)" color="#00AAFF">
+        SISTEMA DE GERENCIAMENTO DE ESTOQUE
       </Heading>
       <Text fontSize="lg" mb={6}>
-        You are now logged in!
+        Bem Vindo de Volta!
       </Text>
-      <Flex justifyContent={"center"} gap={"2rem"}>
-        <Button colorScheme="teal" onClick={handleLogout} mb={4}>
-          Logout
+      <Flex justifyContent={"left"} gap={"2rem"}>
+        <Button colorScheme="red"  onClick={handleLogout} mb={4}>
+          DESLOGAR
         </Button>
         <Button colorScheme="blue" onClick={handleNavigateToItemForm}>
-          Go to Item Registration
+          REGISTRO DE NOVOS ITENS
         </Button>
       </Flex>
+      <Divider orientation="horizontal" borderWidth={"2px"}/>
+      <Box>
+        <ItemList />
+      </Box>
     </Box>
   );
 }
